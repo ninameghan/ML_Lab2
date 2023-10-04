@@ -4,7 +4,8 @@ from matplotlib import pyplot as plt
 
 
 def main():
-    bike()
+    # bike()
+    titanic()
 
 
 def bike():
@@ -38,6 +39,18 @@ def bike():
     plt.scatter(temperatures, data["registered"])
     plt.scatter(temperatures, data["casual"])
     plt.show()
+
+
+def titanic():
+    data = pd.read_csv("data/titanic.csv")
+
+    # Total and survived passengers
+    total = len(data)
+    survived = len(data[data["Survived"] == 1])
+    percentage_survived = survived / total * 100
+    print("Survival rate: ", percentage_survived)
+    print()
+
 
 
 

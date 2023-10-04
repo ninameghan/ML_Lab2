@@ -51,7 +51,17 @@ def titanic():
     print("Survival rate: ", percentage_survived)
     print()
 
+    # Survival rate male vs female passengers
+    male_passengers = data[data["Sex"] == "male"]
+    male_survived = len(male_passengers[male_passengers["Survived"] == 1])
+    male_percentage_survived = male_survived / len(male_passengers) * 100
+    female_passengers = data[data["Sex"] == "female"]
+    female_survived = len(female_passengers[female_passengers["Survived"] == 1])
+    female_percentage_survived = female_survived / len(female_passengers) * 100
 
+    print("Male survival rate: ", male_percentage_survived)
+    print("Female survival rate: ", female_percentage_survived)
+    print()
 
 
 main()

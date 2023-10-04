@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from matplotlib import pyplot as plt
 
 
 def main():
@@ -31,6 +32,13 @@ def bike():
     print("Days with more casual rentals than registered rentals: ")
     print()
     print(casual_days)
+
+    # Plot temperatures against casual & registered rentals
+    plt.figure()
+    plt.scatter(temperatures, data["registered"])
+    plt.scatter(temperatures, data["casual"])
+    plt.show()
+
 
 
 main()

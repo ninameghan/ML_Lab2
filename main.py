@@ -1,11 +1,16 @@
 import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
+from sklearn import svm
 
 
 def main():
-    # bike()
+    plt.close("all")
+    bike()
     titanic()
+    data, target = generate_data()
+    decision_boundaries(data, target)
+    plt.show()
 
 
 def bike():
@@ -38,7 +43,6 @@ def bike():
     plt.figure()
     plt.scatter(temperatures, data["registered"])
     plt.scatter(temperatures, data["casual"])
-    plt.show()
 
     return
 
@@ -74,6 +78,50 @@ def titanic():
     print("Average Survivor Fare: ", survivor_fares.mean())
     print("Average Non-survivor Fare: ", non_survivor_fares.mean())
     print()
+
+    return
+
+
+def generate_data():
+    no_of_clusters = 3
+    cluster_mean = np.random.rand(no_of_clusters, 2)
+
+    data = np.array([[]])
+    target = np.array([[]], dtype='int')
+
+    points_per_cluster = 100
+    sigma = 0.1
+    for i in range(no_of_clusters):
+        noise = sigma * np.random.randn(points_per_cluster, 2)
+        cluster = cluster_mean[i, :] + noise
+        data = np.append(data, cluster).reshape((i + 1) * points_per_cluster, 2)
+        target = np.append(target, [i] * points_per_cluster)
+
+    plt.figure()
+    plt.scatter(data[:, 0], data[:, 1], c=target)
+    plt.show()
+    return data, target
+
+
+def decision_boundaries(data, target):
+    clf = svm.SVC()
+    clf.fit(data, target)
+
+    x_min = min(data[:, 0])
+    x_max = max(data[:, 0])
+    y_min = min(data[:, 1])
+    y_max = max(data[:, 1])
+
+    granularity = 0.01
+    x, y = np.meshgrid(np.arange(x_min, x_max, granularity), np.arange(y_min, y_max, granularity))
+    xy = np.array([x.flatten(), y.flatten()]).transpose()
+
+    prediction = clf.predict(xy)
+    prediction = prediction.reshape(x.shape)
+
+    plt.figure()
+    plt.imshow(prediction, extent=(x_min, x_max, y_min, y_max), alpha=0.4, origin="lower")
+    plt.scatter(data[:, 0], data[:, 1], c=target)
 
     return
 

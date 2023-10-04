@@ -1,16 +1,23 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import numpy as np
+import pandas as pd
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def main():
+    bike()
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+def bike():
+    data = pd.read_csv("data/day.csv")
+    non_holiday = data[data["holiday"] == 0][["casual", "registered"]]
+    holiday = data[data["holiday"] == 1][["casual", "registered"]]
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    # Print results:
+    print("Non-Holiday rentals:")
+    print()
+    print(non_holiday.mean())
+    print("Holiday rentals:")
+    print()
+    print(holiday.mean())
+
+
+main()

@@ -26,6 +26,11 @@ def bike():
     print("Maximum temperature: ", temperatures.max())
     print()
 
+    # Days with more casual than registered rentals
+    casual_days = data[data["registered"] < data["casual"]][["dteday"]]
+    print("Days with more casual rentals than registered rentals: ")
+    print()
+    print(casual_days)
 
 
 main()

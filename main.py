@@ -40,6 +40,8 @@ def bike():
     plt.scatter(temperatures, data["casual"])
     plt.show()
 
+    return
+
 
 def titanic():
     data = pd.read_csv("data/titanic.csv")
@@ -62,6 +64,18 @@ def titanic():
     print("Male survival rate: ", male_percentage_survived)
     print("Female survival rate: ", female_percentage_survived)
     print()
+
+    # Average fares
+    survivors = data[data["Survived"] == 1]
+    survivor_fares = survivors["Fare"]
+    non_survivors = data[data["Survived"] == 0]
+    non_survivor_fares = non_survivors["Fare"]
+
+    print("Average Survivor Fare: ", survivor_fares.mean())
+    print("Average Non-survivor Fare: ", non_survivor_fares.mean())
+    print()
+
+    return
 
 
 main()
